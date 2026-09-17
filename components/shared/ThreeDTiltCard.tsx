@@ -21,6 +21,10 @@ export function ThreeDTiltCard({
     transition: 'transform 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99)',
   });
 
+  const [glareStyle, setGlareStyle] = React.useState<React.CSSProperties>({
+    opacity: 0,
+  });
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const card = cardRef.current;
@@ -36,8 +40,16 @@ export function ThreeDTiltCard({
     const rotateY = ((x - centerX) / centerX) * maxTilt;
 
     setStyle({
-      transform: `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`,
+      transform: `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`,
       transition: 'none',
+    });
+
+    // 3D Glare sheen calculation
+    const glareX = (x / rect.width) * 100;
+    const glareY = (y / rect.height) * 100;
+    setGlareStyle({
+      opacity: 0.35,
+      background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 70%)`,
     });
   };
 
@@ -45,6 +57,10 @@ export function ThreeDTiltCard({
     setStyle({
       transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
       transition: 'transform 500ms cubic-bezier(0.03, 0.98, 0.52, 0.99)',
+    });
+    setGlareStyle({
+      opacity: 0,
+      transition: 'opacity 500ms ease',
     });
   };
 
@@ -54,10 +70,16 @@ export function ThreeDTiltCard({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={style}
-      className={cn('will-change-transform transform-gpu', className)}
+      className={cn('will-change-transform transform-gpu relative overflow-hidden rounded-2xl', className)}
       {...props}
     >
+      {/* 3D Specular Glare Sheen Overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 z-20 rounded-2xl transition-opacity duration-300"
+        style={glareStyle}
+      />
       {children}
     </div>
   );
 }
+
