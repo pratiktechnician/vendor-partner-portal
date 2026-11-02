@@ -1,4 +1,8 @@
+'use client';
+
+import * as React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { ThreeDHeroCanvas } from '@/components/shared/ThreeDHeroCanvas';
@@ -6,6 +10,13 @@ import { ThreeDTiltCard } from '@/components/shared/ThreeDTiltCard';
 import { Building2, ShieldCheck, ArrowRight, UserCheck, Users, Sparkles, Zap, Award, Layers } from 'lucide-react';
 
 export default function Home() {
+  const router = useRouter();
+
+  const handleEnterDemoAdmin = () => {
+    document.cookie = 'user_role=super_admin; path=/; max-age=86400';
+    router.push('/admin/dashboard');
+  };
+
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-[#020617] text-white flex flex-col justify-between p-6 relative overflow-hidden">
       {/* Background Animated Gradient Orbs */}
@@ -30,16 +41,18 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
+              <Button
+                size="lg"
+                onClick={handleEnterDemoAdmin}
+                className="bg-gradient-to-r from-purple-600 via-indigo-600 to-sky-500 hover:from-purple-500 hover:to-sky-400 text-white font-bold px-8 py-6 rounded-xl shadow-[0_10px_35px_rgba(147,51,234,0.4)] hover:shadow-[0_15px_45px_rgba(147,51,234,0.6)] transition-all duration-300 gap-3 text-base cursor-pointer"
+              >
+                <ShieldCheck className="w-5 h-5 text-white" />
+                <span>Enter as Demo Admin (No Login)</span>
+                <ArrowRight className="w-5 h-5" />
+              </Button>
               <Link href="/register/vendor">
-                <Button size="lg" className="bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold px-8 py-6 rounded-xl shadow-[0_10px_30px_rgba(14,165,233,0.35)] hover:shadow-[0_15px_40px_rgba(14,165,233,0.5)] transition-all duration-300 gap-3 text-base">
-                  <span>Register Vendor Organization</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Button>
-              </Link>
-              <Link href="/admin/dashboard">
                 <Button size="lg" variant="outline" className="border-slate-700/80 bg-slate-900/60 text-slate-200 hover:bg-slate-800/80 hover:text-white font-semibold px-7 py-6 rounded-xl backdrop-blur-md transition-all duration-300 gap-2.5 text-base">
-                  <ShieldCheck className="w-5 h-5 text-sky-400" />
-                  <span>Executive Command Center</span>
+                  <span>Register Vendor</span>
                 </Button>
               </Link>
             </div>
