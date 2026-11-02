@@ -63,17 +63,22 @@ export default function VendorTicketsPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
-              <label className="block text-xs font-semibold mb-1">Subject / Summary *</label>
-              <Input value={newSubject} onChange={(e) => setNewSubject(e.target.value)} placeholder="e.g. Invoice INV-0881 Payment Run Status" />
+              <label className="block text-xs font-semibold mb-1 text-slate-800 dark:text-slate-200">Subject / Summary *</label>
+              <Input
+                value={newSubject}
+                onChange={(e) => setNewSubject(e.target.value)}
+                placeholder="e.g. Invoice INV-0881 Payment Run Status"
+                className="text-slate-900 dark:text-slate-100 font-medium"
+              />
             </div>
             <div>
-              <label className="block text-xs font-semibold mb-1">Detailed Message *</label>
+              <label className="block text-xs font-semibold mb-1 text-slate-800 dark:text-slate-200">Detailed Message *</label>
               <textarea
                 value={newMessageText}
                 onChange={(e) => setNewMessageText(e.target.value)}
                 rows={4}
                 placeholder="Provide details regarding your query..."
-                className="w-full text-xs p-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900"
+                className="w-full text-xs p-2.5 rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 font-medium"
               />
             </div>
             <Button onClick={handleCreateTicket} className="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs gap-1.5">

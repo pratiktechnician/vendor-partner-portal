@@ -85,3 +85,29 @@ body {
   animation: pulseGlow 4s ease-in-out infinite;
 }
 
+/* Form inputs & textareas text contrast fix */
+input, textarea, select {
+  color: #0f172a !important; /* dark slate text on white inputs */
+}
+
+input::placeholder, textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* When input is inside a dark container or has dark styling */
+.dark input, .dark textarea, .dark select,
+input.bg-slate-900, input.bg-slate-950,
+textarea.bg-slate-900, textarea.bg-slate-950,
+select.bg-slate-900, select.bg-slate-950 {
+  color: #f8fafc !important; /* clear white text on dark backgrounds */
+}
+
+/* Card titles and labels visibility */
+label {
+  color: #334155;
+}
+.dark label {
+  color: #cbd5e1;
+}
+
+
