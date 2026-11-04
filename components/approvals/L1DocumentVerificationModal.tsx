@@ -153,9 +153,12 @@ export const L1DocumentVerificationModal: React.FC<L1ModalProps> = ({
                           <button
                             type="button"
                             onClick={() => {
-                              window.open(doc.storage_path || '#', '_blank');
+                              window.open(
+                                `/documents/viewer?doc=${encodeURIComponent(doc.file_name)}&vendor=${encodeURIComponent(vendorName)}&category=${encodeURIComponent(doc.category)}`,
+                                '_blank'
+                              );
                             }}
-                            className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg shadow-md shadow-blue-600/20 flex items-center gap-1.5 transition-colors"
+                            className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg shadow-md shadow-blue-600/20 flex items-center gap-1.5 transition-colors cursor-pointer"
                           >
                             <ShieldCheck className="w-3.5 h-3.5" />
                             Open Secure Fullscreen Preview
